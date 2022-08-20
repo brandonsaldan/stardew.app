@@ -41,8 +41,12 @@ import {
   parseCrafting,
 } from "../utils";
 
+import { Popover } from '@headlessui/react'
+
 import Notification from "./notification";
 import Popup from "./popup";
+import Login from "./inputs/login";
+import UserSignedIn from "./usersignedin";
 
 import { XMLParser } from "fast-xml-parser";
 const semVerGte = require("semver/functions/gte");
@@ -421,40 +425,12 @@ const SidebarLayout = ({
                 </Link>
               ))}
             </nav>
-            <Popup />
             <div className="mx-2 flex space-x-2">
               <div className="mt-4 flex-1 justify-end space-y-2 bg-white dark:bg-[#111111]">
                 {!user ? (
-                  <Link href="/api/oauth">
-                    <a className="group flex items-center rounded-md border bg-gray-100 py-4 px-5 text-base font-medium text-black hover:cursor-pointer dark:border-[#2a2a2a] dark:bg-[#1f1f1f] dark:text-white hover:dark:bg-[#191919]">
-                      <FaUserCircle
-                        className={classNames(
-                          "mr-3 h-5 w-5 flex-shrink-0 text-black dark:text-white"
-                        )}
-                        aria-hidden="true"
-                      />
-                      <p className="dark:text-white">Login</p>
-                    </a>
-                  </Link>
+                  <Login />
                 ) : (
-                  <div
-                    className={classNames(
-                      "border bg-gray-100 text-black dark:border-[#2A2A2A] dark:bg-[#1F1F1F] dark:text-white" +
-                        "group flex items-center rounded-md py-4 px-3 text-base font-medium"
-                    )}
-                  >
-                    <Image
-                      className={classNames(
-                        "mr-3 h-5 w-5 flex-shrink-0 rounded-2xl text-black dark:text-white"
-                      )}
-                      aria-hidden="true"
-                      src={`https://cdn.discordapp.com/avatars/${user.discord_id}/${user.discord_avatar}.png`}
-                      alt="User avatar"
-                      height={24}
-                      width={24}
-                    />
-                    <p className="ml-2 dark:text-white">{user.discord_name}</p>
-                  </div>
+                  <UserSignedIn />
                 )}
               </div>
               <div className="mt-4 flex justify-center bg-white dark:bg-[#111111]">
